@@ -1,2 +1,2 @@
-This is a repostary.
-# Predictive_Analysis-R-
+# Predictive_Analysis-R- Course repository
+This respositary consists of code for the Predictive Anaylysis course at SAIT college.
