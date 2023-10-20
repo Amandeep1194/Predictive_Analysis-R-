@@ -4,3 +4,5 @@ This respositary consists of code for the Predictive Anaylysis course at [SAIT](
 ## Unit 1 - Introduction to R
 [Assignment 1 : Working with DataFrame](https://github.com/Amandeep1194/Predictive_Analysis-R-/blob/main/Assignment%20Dataframe%201.R)
 
+## Unit 2 - Data wrangling and visualization in R
+
