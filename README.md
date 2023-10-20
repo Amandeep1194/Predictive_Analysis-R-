@@ -5,4 +5,6 @@ This respositary consists of code for the Predictive Anaylysis course at [SAIT](
 [Assignment 1 : Working with DataFrame](https://github.com/Amandeep1194/Predictive_Analysis-R-/blob/main/Assignment%20Dataframe%201.R)
 
 ## Unit 2 - Data wrangling and visualization in R
+[Assignment 2 : Data wrangling and visulatization](https://github.com/Amandeep1194/Predictive_Analysis-R-/blob/main/Assignment%202%20Titan.R)
+
 
