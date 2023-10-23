@@ -1,0 +1,115 @@
+---
+title: "ASsignment 3 SQL in R"
+output: html_document
+date: "2023-10-22"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## ASsignment 3 [Using SQL in R]
+
+Loading libraraies:
+
+```{r echo=TRUE}
+library("sqldf")
+```
+
+```{r echo=TRUE}
+library("tidyverse")
+```
+
+```{r echo=TRUE}
+library("RODBC")
+```
+
+Making connection:
+
+```{r echo=TRUE}
+db_conn <-odbcConnect("myDatabase19", rows_at_time =1)
+
+```
+
+## Questions:-
+
+Question 1:-Which geographic regions generate the most sales?
+
+Query1:
+
+```{r echo=TRUE}
+gquery <- "select [Group] as Regions,sum(SalesYTD) as Totalsales
+from Sales.SalesTerritory
+Group by [Group];
+"
+```
+
+Executing the query:
+
+```{r echo=TRUE}
+gdata <- sqlQuery(db_conn, gquery, stringsAsFactors = FALSE)
+```
+
+Percentage of query:
+
+```{r echo=TRUE}
+gdata <- gdata %>% 
+  mutate(percentage = Totalsales/sum(Totalsales) * 100)
+```
+
+view of query:
+
+```{r echo=TRUE}
+head(gdata)
+```
+
+Graph of query1:
+
+```{r echo=TRUE}
+ggplot(gdata, aes(x="", y= Totalsales, fill= Regions)) +
+  geom_bar(stat = "identity") +
+  coord_polar(theta = "y") +
+  labs(title = "total sales by group") +
+geom_text(aes(label = paste0(Regions, "\n", round(percentage, 1), "%")), position = position_stack(vjust = 0.5))
+
+```
+
+Question 2:- What are the most profitable products?
+
+Query2:
+
+```{r echo=TRUE}
+ppquery <- "select Top 10 Name as productname,SUM(LineTotal)as totalsales,
+(SUM(LineTotal) -(SUM(StandardCost))) as totalprofit
+from Production.Product as PP
+join Sales.SalesOrderDetail as SD
+on PP.ProductID=SD.ProductID
+group by Name
+order by totalsales, totalprofit DESC;"
+
+```
+
+Executing the query:
+
+```{r echo=TRUE}
+ppdata <- sqlQuery(db_conn, ppquery, stringsAsFactors = FALSE)
+```
+
+View of query:
+
+```{r echo=TRUE}
+head(ppdata)
+```
+
+Graph of query2:
+
+```{r echo=TRUE}
+ggplot(ppdata, aes(x= productname)) +
+  geom_bar(aes(y=totalsales, fill= "totalsales"),stat = "identity", position = "dodge", width = 0.7) +
+  geom_bar(aes(y=totalprofit, fill= "totalprofit"),stat = "identity",position = "dodge", width = 0.7) +
+  scale_fill_manual(values = c("totalsales" = "blue", "totalprofit" = "green")) +
+  labs(title = "Most profitable Products") +
+  theme_minimal()
+```
+
+The End!
