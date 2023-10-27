@@ -13,5 +13,5 @@ This respositary consists of code for the Predictive Anaylysis course at [SAIT](
 
 ## Unit 4 - Linear Regression in R
 [Assignment 4 : linear regression in R for coffee_bloodpressure](https://github.com/Amandeep1194/Predictive_Analysis-R-/blob/main/Assignment%204%20coffee_bP.Rmd)
-[Assignmetn 4.1 : linear regression in R for Bright smile corporation]()
+[Assignmetn 4.1 : linear regression in R for Bright smile corporation](https://github.com/Amandeep1194/Predictive_Analysis-R-/blob/main/Assignment%204.1%20Dentist.Rmd)
 
