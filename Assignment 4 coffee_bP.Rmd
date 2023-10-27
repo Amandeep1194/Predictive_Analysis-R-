@@ -1,0 +1,128 @@
+---
+title: "Assignment 4"
+output: html_document
+date: "2023-10-26"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Assignment 4(Coffee_bloodpressure)
+
+Load the required library:
+
+```{r echo=TRUE}
+library(tidyverse)
+```
+
+Load the csv file in R:
+
+```{r echo=TRUE}
+df_coffee <- read.csv("coffee_bloodPressure.csv")
+```
+
+View the dataset:
+
+```{r echo=TRUE}
+view(df_coffee)
+```
+
+Rename column name:
+
+```{r echo=TRUE}
+colnames(df_coffee)[1] <- paste("coffee_cups")
+colnames(df_coffee)[2] <- paste("Blood_p")
+view(df_coffee)
+```
+
+## Questions:
+
+Question 1. Find the correlation between coffee consumption and blood pressure using the scatter plot.
+
+Scatter plot of given dataset:
+
+```{r echo=TRUE}
+df_coffee %>% 
+  ggplot(aes(coffee_cups,Blood_p)) +
+  geom_point() +
+  geom_smooth(method = "lm",color= "purple")
+```
+
+Question 2: Train the model and predict the values for 8 and 6 cups of coffee in a day.
+
+Split the dataset:
+
+```{r echo=TRUE}
+set.seed(1)
+```
+
+Create ID column:
+
+```{r echo=TRUE}
+df_coffee$id <- 1:nrow(df_coffee)
+```
+
+If 70% of dataset as training set and 30% as test set
+
+```{r echo=TRUE}
+train_coffee <- df_coffee%>%  sample_frac(0.70)
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+test_coffee <- dplyr::anti_join(df_coffee, train_coffee, by ='id')
+view(df_coffee)
+```
+
+Train a model:
+
+```{r echo=TRUE}
+model_coffee <- lm(Blood_p ~ coffee_cups, data= train_coffee)
+summary(model_coffee)
+```
+
+Predict value for 8,6 cups of coffee:
+
+```{r echo=TRUE}
+predict(model_coffee,data.frame(coffee_cups=c(8,6)))
+```
+
+Add predicted value for 8 coffee cups in dataset:
+
+```{r echo=TRUE}
+df_coffee <-df_coffee %>% 
+  add_row(coffee_cups=8,Blood_p=153.12)
+```
+
+Add predicted value for 6 coffee cups in dataset:
+
+```{r echo=TRUE}
+df_coffee <-df_coffee %>% 
+  add_row(coffee_cups=6,Blood_p=147.91)
+```
+
+view dataset for predicted value:
+
+```{r echo=TRUE}
+view(df_coffee)
+
+```
+
+Question 3: Describe the relationship between coffee consumption and blood pressure and explain what someone should do if their doctor says that their blood pressure is a concern?
+
+Scatter plot after adding value for 8,6 coffee cups:
+
+```{r echo=TRUE}
+df_coffee %>% 
+  ggplot(aes(x=coffee_cups,y=Blood_p)) +
+  geom_point() +
+  geom_smooth(method = "lm",color= "maroon") +
+  labs(x="coffee cups", y= "Blood pressure",
+       title = "Affect of coffee on blood pressure")
+```
+
+Answer: If their doctor says that their blood pressure is a concern then they should limit their coffee consumption because from graph it can be seen that cups of coffee have impact on blood pressure.
+
+The End.
+
+Amandeep kaur

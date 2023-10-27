@@ -1,0 +1,126 @@
+---
+title: "Assignment 4.1"
+output: html_document
+date: "2023-10-26"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Assignment 4.1(Dentist)
+
+Load the required libraries:
+
+```{r echo=TRUE}
+library(tidyverse)
+```
+
+Load the csv file in R:
+
+```{r echo=TRUE}
+df_sd <- read.csv("dentalService.csv")
+```
+
+view dataset:
+
+```{r echo=TRUE}
+view(df_sd)
+```
+
+Rename the column name:
+
+```{r echo=TRUE}
+colnames(df_sd)[1] <- paste("Income")
+colnames(df_sd)[2] <- paste("visits")
+view(df_sd)
+```
+
+## Questions:
+
+Question 1:Show a graph (scatter) with linear progression.
+
+```{r echo=TRUE}
+df_sd %>% 
+  ggplot(aes(Price, Income)) +
+  geom_point()
+```
+
+Question 2. Analyze the data and add a regression line.
+
+```{r echo=TRUE}
+df_sd %>% 
+  ggplot(aes(Price, Income)) +
+  geom_point() +
+  geom_smooth(method = "lm",color= "purple")
+```
+
+Split the data:
+
+```{r echo=TRUE}
+set.seed(1)
+```
+
+Create a Id column:
+
+```{r echo=TRUE}
+df_sd$id <- 1:nrow(df_sd)
+```
+
+If 70% of dataset as training set and 30% as test set:
+
+```{r echo=TRUE}
+train_sd <- df_sd%>%  sample_frac(0.70)
+```
+
+```{r echo=TRUE}
+test_sd <- dplyr::anti_join(df_sd, train_sd, by ='id')
+view(df_sd)
+```
+
+Train a model:
+
+```{r echo=TRUE}
+model_sd <- lm(Income ~ Price, data= train_sd)
+summary(model_sd)
+```
+
+Question 3: Predict the next two price points for (200,50).
+
+```{r echo=TRUE}
+predict(model_sd,data.frame(Price=c(200,50)))
+```
+
+Add the predicted value in actual dataset:
+
+```{r echo=TRUE}
+df_sd <-df_sd %>% 
+  add_row(Income=299.93,visits=0,Price=200)
+```
+
+```{r echo=TRUE}
+df_sd <-df_sd %>% 
+  add_row(Income=59.11,visits=0,Price=50)
+
+```
+
+View the dataset after adding value:
+
+```{r echo=TRUE}
+view(df_sd)
+```
+
+Question 4: Add the predicted value on graph.
+
+```{r echo=TRUE}
+df_sd %>% 
+  ggplot(aes(x=Price,y=Income)) +
+  geom_point() +
+  geom_smooth(method = "lm",color= "maroon") +
+  labs(x="Price", y= "Income",
+       title = "Price vs Income")
+```
+
+The End.
+
+Amandeep Kaur.
