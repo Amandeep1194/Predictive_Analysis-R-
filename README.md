@@ -15,3 +15,5 @@ This respositary consists of code for the Predictive Anaylysis course at [SAIT](
 [Assignment 4 : linear regression in R for coffee_bloodpressure](https://github.com/Amandeep1194/Predictive_Analysis-R-/blob/main/Assignment%204%20coffee_bP.Rmd)
 [Assignmetn 4.1 : linear regression in R for Bright smile corporation](https://github.com/Amandeep1194/Predictive_Analysis-R-/blob/main/Assignment%204.1%20Dentist.Rmd)
 
+## Unit 5 - Kmeans cluster in R
+[Assignment 5 : kmeans cluster in R](https://github.com/Amandeep1194/Predictive_Analysis-R-/blob/main/Assignment%205%20kmeans.R)
