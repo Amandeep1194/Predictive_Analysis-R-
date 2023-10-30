@@ -17,3 +17,6 @@ This respositary consists of code for the Predictive Anaylysis course at [SAIT](
 
 ## Unit 5 - Kmeans cluster in R
 [Assignment 5 : kmeans cluster in R](https://github.com/Amandeep1194/Predictive_Analysis-R-/blob/main/Assignment%205%20kmeans.R)
+
+## Unit 6 - Forecasting in R
+[Assignment 6: Forecasting in R using arima model](https://github.com/Amandeep1194/Predictive_Analysis-R-/blob/main/Assignment%206.R)
